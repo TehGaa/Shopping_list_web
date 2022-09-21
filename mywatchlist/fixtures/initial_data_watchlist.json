@@ -46,11 +46,11 @@
         "model": "mywatchlist.WatchlistModel",
         "pk": 5,
         "fields": {
-            "watched": "NO",
-            "title": "DUNE",
-            "rating": 4.1,
-            "release_date": "13 October 2021",
-            "review": "-"
+            "watched": "YES",
+            "title": "Crazy Rich Asians",
+            "rating": 4.5,
+            "release_date": "7 August 2018",
+            "review": "Great movie, perfect image of Asian's families"
         }
     },
     {
