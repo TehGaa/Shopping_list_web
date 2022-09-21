@@ -1,0 +1,111 @@
+[   {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 1,
+        "fields": {
+            "watched": "YES",
+            "title": "Iron Man 3",
+            "rating": 4.4,
+            "release_date": "25 April 2013",
+            "review": "The film is better than Shang-Chi"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 2,
+        "fields": {
+            "watched": "YES",
+            "title": "Fall",
+            "rating": 4.2,
+            "release_date": "16 August 2022",
+            "review": "Quite amusing, but not that good"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 3,
+        "fields": {
+            "watched": "NO",
+            "title": "DUNE",
+            "rating": 4.1,
+            "release_date": "13 October 2021",
+            "review": "-"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 4,
+        "fields": {
+            "watched": "YES",
+            "title": "STAND BY ME: Doraemon 2",
+            "rating": 4.9,
+            "release_date": "19 February 2021",
+            "review": "Nice film, Nobita is a very lucky man to have Shizuka as a wife"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 5,
+        "fields": {
+            "watched": "NO",
+            "title": "DUNE",
+            "rating": 4.1,
+            "release_date": "13 October 2021",
+            "review": "-"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 6,
+        "fields": {
+            "watched": "YES",
+            "title": "Godzilla",
+            "rating": 4.2,
+            "release_date": "16 May 2014",
+            "review": "Humans were wrong, the Godzilla may not be a threat for human being"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 7,
+        "fields": {
+            "watched": "YES",
+            "title": "Murder On The Orient Express",
+            "rating": 4,
+            "release_date": "29 November 2017",
+            "review": "The movie was amazing, especially Gal Gadot"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 8,
+        "fields": {
+            "watched": "YES",
+            "title": "The Last: Naruto the Movie",
+            "rating": 4.8,
+            "release_date": "6 December 2014",
+            "review": "Absolute masterpiece, i was so captivated by the movie"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 9,
+        "fields": {
+            "watched": "NO",
+            "title": "Hacksaw Ridge",
+            "rating": 4.9,
+            "release_date": "4 November 2016",
+            "review": "-"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistModel",
+        "pk": 10,
+        "fields": {
+            "watched": "YES",
+            "title": "Minions: The Rise of Gru",
+            "rating": 4.5,
+            "release_date": "28 June 2022",
+            "review": "The film is absolutely spitting image of minions funniness"
+        }
+    }
+]
