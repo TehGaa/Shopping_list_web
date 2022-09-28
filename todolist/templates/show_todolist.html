@@ -35,7 +35,7 @@
             </form></th>
             <th><form method = 'POST' action = 'delete-task/'>
                 {% csrf_token %}
-                <input type = 'submit' name = "{{task.title}}" value = 'Hapus Task'>
+                <input type = 'submit' name = "{{task.id}}" value = 'Hapus Task'>
             </form></th>
         </tr>
     {% endfor %}
