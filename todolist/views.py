@@ -1,10 +1,11 @@
+from http.client import HTTPResponse
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from todolist.models import Task
@@ -71,16 +72,16 @@ def new_task(request):
 def change_status(request):
 
     for i in Task.objects.filter(user = request.user):
-        if i.title in request.POST:
+        if str(i.id) in request.POST:
             Task.objects.filter(user = request.user, title = i.title, 
-            date = i.date).update(is_finished = not i.is_finished)
+            date = i.date, description = i.description).update(is_finished = not i.is_finished)
             break
 
     return HttpResponseRedirect(reverse('todolist:show_todolist'))
 
 def delete_task(request):
     for i in Task.objects.filter(user = request.user):
-        if i.title in request.POST:
+        if str(i.id) in request.POST:
             i.delete()
             break
     return HttpResponseRedirect(reverse('todolist:show_todolist'))

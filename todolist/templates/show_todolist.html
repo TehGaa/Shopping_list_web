@@ -31,11 +31,11 @@
             <th>{{task.is_finished}}</th>
             <th><form method = 'POST' action = 'change-status/'>
                 {% csrf_token %}
-                <input type = 'submit' name = {{task.title}} value = 'ubah'>
+                <input type = 'submit' name = "{{task.id}}" value = 'ubah'>
             </form></th>
             <th><form method = 'POST' action = 'delete-task/'>
                 {% csrf_token %}
-                <input type = 'submit' name = {{task.title}} value = 'Hapus Task'>
+                <input type = 'submit' name = "{{task.title}}" value = 'Hapus Task'>
             </form></th>
         </tr>
     {% endfor %}
