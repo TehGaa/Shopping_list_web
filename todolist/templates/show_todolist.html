@@ -28,7 +28,11 @@
             <th>{{task.date}}</th>
             <th>{{task.title}}</th>
             <th>{{task.description}}</th>
-            <th>{{task.is_finished}}</th>
+            {% if task.is_finished %}
+                <th>Selesai</th>
+            {% else %}
+                <th>Belum Selesai</th>
+            {% endif %}
             <th><form method = 'POST' action = 'change-status/'>
                 {% csrf_token %}
                 <input type = 'submit' name = "{{task.id}}" value = 'ubah'>
