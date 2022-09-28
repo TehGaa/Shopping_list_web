@@ -16,7 +16,7 @@ import datetime
 # Create your views here.
 def show_todolist(request):
     context = {
-        'list_task': Task.objects.filter(user = request.user).values()
+        'list_task': Task.objects.filter(user = request.user).order_by('date', 'title', 'description', 'is_finished').values()
     }
     return render(request, 'show_todolist.html', context = context)
 
