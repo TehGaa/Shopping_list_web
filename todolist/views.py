@@ -73,7 +73,8 @@ def change_status(request):
 
     for i in Task.objects.filter(user = request.user):
         if str(i.id) in request.POST:
-            Task.objects.filter(id = i.id).update(is_finished = not i.is_finished)
+            i.is_finished = not i.is_finished
+            i.save()
             break
 
     return HttpResponseRedirect(reverse('todolist:show_todolist'))
