@@ -76,11 +76,11 @@ def change_status(request):
             date = i.date, description = i.description).update(is_finished = not i.is_finished)
             break
 
-    return HttpResponseRedirect('todolist:show_todolist')
+    return HttpResponseRedirect(reverse('todolist:show_todolist'))
 
 def delete_task(request):
     for i in Task.objects.filter(user = request.user):
         if i.title in request.POST:
             i.delete()
             break
-    return HttpResponseRedirect('todolist:show_todolist')
+    return HttpResponseRedirect(reverse('todolist:show_todolist'))
