@@ -1,0 +1,24 @@
+table, th{
+    border:1px;
+    border-style: solid;
+    margin-left: auto;
+    margin-right: auto;
+}
+body{
+    background-image: url('final_fantasy_background.jpg');
+    background-size: 90%;
+    text-align: center;
+    font-family: Verdana;
+}
+#image1{
+    height:100px;
+    transform: scaleX(-1);
+}
+#image2{
+    height:100px;
+    padding-left: 1305px;
+}
+
+h3, p{
+    text-align: center;
+}

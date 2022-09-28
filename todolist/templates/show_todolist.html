@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'todolist_style.css' %}">
+{% endblock meta %}
+
+{% block content %}
+
+<img src = "{% static 'black_mage.png' %}" id = "image1">
+<img src = "{% static 'black_mage.png' %}" id = "image2">
+
+<h3>Username: </h3>
+<p>{{user}}</p>
+
+<table>
+    <tr>
+        <th>Tanggal Pembuatan</th>
+        <th>Judul</th>
+        <th>Deskripsi</th>
+        <th>Status Penyelesaian</th>
+        <th>Tombol Ubah Status</th>
+        <th>Tombol Hapus Task</th>
+    </tr>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    {% for task in list_task %}
+        <tr>
+            <th>{{task.date}}</th>
+            <th>{{task.title}}</th>
+            <th>{{task.description}}</th>
+            <th>{{task.is_finished}}</th>
+            <th><form method = 'POST' action = 'change-status/'>
+                {% csrf_token %}
+                <input type = 'submit' name = {{task.title}} value = 'ubah'>
+            </form></th>
+            <th><form method = 'POST' action = 'delete-task/'>
+                {% csrf_token %}
+                <input type = 'submit' name = {{task.title}} value = 'Hapus Task'>
+            </form></th>
+        </tr>
+    {% endfor %}
+</table><br>
+
+
+
+<!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
+<button><a href="{% url 'todolist:create-task' %}" name = 'task_baru'>Tambah Task Baru</a></button>
+<button><a href="{% url 'todolist:logout_user' %}" name = 'logout'>Logout</a></button>
+
+
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'new_task_style.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<img src = "{% static 'black_mage.png' %}" id = "image1">
+<img src = "{% static 'black_mage.png' %}" id = "image2">
+
+<h5>Username: </h5>
+<p>{{user}}</p>
+<form method = "POST">
+    <table>
+        {% csrf_token %}
+        {{form.as_table}}
+        <td><input type = 'submit' name = 'new_task' value = 'tambah task baru'></td>
+    </table>
+</form>
+
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+body{
+    background-image: url('final_fantasy_background.jpg');
+    background-size: 90%;
+    font-family: Verdana;
+}
+
+h5{
+    margin-left: auto;
+    margin-right: auto;
+}
+form{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#image1{
+    height:100px;
+    transform: scaleX(-1);
+}
+#image2{
+    height:100px;
+    padding-left: 1305px;
+}

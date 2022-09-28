@@ -1,0 +1,23 @@
+form{
+    font-family: verdana;
+    position: fixed;
+    left: 470px;
+    padding-top: 100px; 
+}
+h1{
+    font-family: verdana;
+    position: fixed;
+    left: 500px;
+}
+body{
+    background-image: url('final_fantasy_background.jpg');
+    background-size: 90%;
+}
+#image1{
+    height:100px;
+    transform: scaleX(-1);
+}
+#image2{
+    height:100px;
+    padding-left: 1305px;
+}
