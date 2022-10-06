@@ -13,11 +13,73 @@ body{
     background-image: url('final_fantasy_background.jpg');
     background-size: 90%;
 }
-#image1{
-    height:100px;
-    transform: scaleX(-1);
+
+@media (max-width: 575.98px) {
+    #image1{
+        height:30px;
+        transform: scaleX(-1);
+        float:left;
+        margin-left: 20px;
+    }
+    #image2{
+        height:30px;
+        float:right;
+        margin-right: 20px;
+    }
 }
-#image2{
-    height:100px;
-    padding-left: 1305px;
+
+@media (max-width: 767.98px) {
+    #image1{
+        height:50px;
+        transform: scaleX(-1);
+        float:left;
+        margin-left: 20px;
+    }
+    #image2{
+        height:50px;
+        float:right;
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    #image1{
+        height:60px;
+        transform: scaleX(-1);
+        float:left;
+        margin-left: 20px;
+    }
+    #image2{
+        height:60px;
+        float:right;
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    #image1{
+        height:80px;
+        transform: scaleX(-1);
+        float:left;
+        margin-left: 20px;
+    }
+    #image2{
+        height:80px;
+        float:right;
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 1200px){
+    #image1{
+        height:100px;
+        transform: scaleX(-1);
+        float:left;
+        margin-left: 20px;
+    }
+    #image2{
+        height:100px;
+        float:right;
+        margin-right: 20px;
+    }
 }

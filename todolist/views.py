@@ -1,4 +1,4 @@
-from http.client import HTTPResponse
+
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
@@ -70,7 +70,6 @@ def new_task(request):
     return render(request, 'new_task.html', context = context)
 
 def change_status(request):
-
     for i in Task.objects.filter(user = request.user):
         if str(i.id) in request.POST:
             i.is_finished = not i.is_finished
