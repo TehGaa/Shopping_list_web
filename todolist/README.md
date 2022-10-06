@@ -42,11 +42,35 @@ Deployment dilakukan dengan melakukan commit serta push ke github atas perubahan
 ### Membuat dua akun pengguna dan tiga dummy data menggunakan model Task pada akun masing-masing di situs web Heroku
 Pembuatan akun diawali dengan masuk ke link aplikasi heroku. Kemudian, kita perlu untuk melakukan dua kali registrasi sehingga terbentuk dua buah akun. Kemudian, kita perlu untuk melakukan login ke masing-masing akun kemudian melakukan penambahan task baru dengan menekan tombol ```Tambah Task Baru```.
 
+---
+# README Tugas 5<br>
 
+# Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
+Inline CSS merupakan kode-kode CSS yang ditulis langsung pada tag ```style``` di dalam suatu tag html. Kelebihan dari cara ini adalah mudah untuk dilakukan karena tidak perlu di link oleh file static lain. Kekurangan dari cara ini adalah ```style``` yang dibuat tidak dapat digunakan oleh komponen lain.
 
+Internal CSS merupakan kode-kode CSS yang ditulis langsung pada tag ```style``` di dalam file html. Kelebihan dari cara ini adalah dapat digunakan untuk berbagai komponen. Kekurangan dari cara ini adalah tidak dapat digunakan pada file html lain.
 
+External CSS merupakan kode-kode CSS yang ditulis dalam suatu file css tersendiri kemudian di-__link__ dengan file html. Kelebihan dari cara ini adalah dapat digunakan pada banyak file html. Kekurangan dari cara ini adalah halaman dapat menjadi berantakan apabila file gagal dipanggil.
 
+# Jelaskan tag HTML5 yang kamu ketahui
+- ```<button>``` digunakan untuk pembuatan sebuah button
+- ```<div>``` digunakan apabila ingin membuat sebuah bagian untuk menempatkan komponen-komponen lainnya
+- ```<p>``` digunakan apabila ingin membuat suatu paragraf
 
+# Jelaskan tipe-tipe CSS selector yang kamu ketahui
+- Element selector digunakan dengan cara memakai tag HTML. Tag tidak diawali apapun.
+- ID selector digunakan dengan cara memakai ID suatu tag HTML. ID diawali dengan ```#```
+- Class selector digunakan dengan cara memakai nama class. CLass diawali dengan ```.```
 
+#  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas
 
+## Kustomisasi templat HTML yang telah dibuat pada Tugas 4 dengan menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
 
+### Kustomisasi templat untuk halaman login, register, dan create-task semenarik mungkin.
+Kustomisasi dilakukan dengan menambahkan CSS dan CSS framework bootstrap pada templat-templat tersebut. Kustomisasi yang saya lakukan adalah dengan mengganti button dengan button primary dari bootstrap, mengganti background agar hover dengan css, dll.
+
+### Kustomisasi halaman utama todo list menggunakan cards. (Satu card mengandung satu task).
+Kustomisasi dengan mengganti seluruh table menjadi cards. Saya membuat ```div``` dengan class row kemudian di dalamnya akan di-looping sebanyak item yang ada pada ```context```. Kemudian setiap looping akan dibuat card baru dengan isi yang sesuai dengan atribut-atribut pada ```Task``` Django Model.
+
+## Membuat keempat halaman yang dikustomisasi menjadi responsive.
+Kustomisasi dilakukan dengan menambahkan media query agar gambar yang saya tempelkan dapat berubah-ubah ukurannya sesuai dengan ukuran layar pengguna.
