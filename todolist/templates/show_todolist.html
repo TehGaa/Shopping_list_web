@@ -15,38 +15,34 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(result){
+                    var temp = "";
                     $.each(result, function(key, value){
-                        if (key + 1 > counter){
-                            let temp = "<div class = \"col pt-md-2\" id = 'col-"+result[key].pk+"'>" +
-                                    "<div class=\"card h-100\" style=\"width: 18rem;\">"+
-                                        "<img src=\"{% static 'final_fantasy_2.jpg' %}\" class=\"card-img-top\">"+
-                                        "<div class=\"card-header\">"+
-                                            "<h5 class=\"card-title\">"+result[key].fields.title+"</h5>"+
-                                        "</div>"+
-                                        "<div class = 'card-body'>" + 
-                                            "<p class=\"card-text\">Date:"+ result[key].fields.date +"</p>" +
-                                            ((result[key].fields.is_finished)? "<p class=\"card-text\" id = 'card-"+result[key].pk+"'>Status Penyelesaian: Aduh</p>": 
-                                                "<p class=\"card-text\" id = 'card-"+result[key].pk+"'>Status Penyelesaian: Belum Selesai</p>") +
-                                            "<p class=\"card-text\">Description: "+ result[key].fields.description+"</p>" + 
-                                        "</div>"+
-                                        "<div class=\"card-footer\">"+
-                                            "<table>"+
-                                                "<th>"+
-                                                    "<button class = 'btn btn-primary' onclick = 'changeStatus("+result[key].pk+")' name = 'changeButton' id = 'changeButton'>Ubah Status</button>"+
-                                                "</th>"+
-                                                "<th>"+
-                                                    "<button class = 'btn btn-primary' onclick = 'deleteTask("+result[key].pk+")' name = 'deleteButton' id = 'deleteButton'>Hapus Task</button>"+
-                                                "</th>"+
-                                            "</table>"+
-                                        "</div>"+
+                        temp += "<div class = \"col pt-md-2\" id = 'col-"+result[key].pk+"'>" +
+                                "<div class=\"card h-100\" style=\"width: 18rem;\">"+
+                                    "<img src=\"{% static 'final_fantasy_2.jpg' %}\" class=\"card-img-top\">"+
+                                    "<div class=\"card-header\">"+
+                                        "<h5 class=\"card-title\">"+result[key].fields.title+"</h5>"+
                                     "</div>"+
-                                "</div>";
-                            $(".row").append(
-                                temp
-                            );
-                        } 
+                                    "<div class = 'card-body'>" + 
+                                        "<p class=\"card-text\">Date:"+ result[key].fields.date +"</p>" +
+                                        ((result[key].fields.is_finished)? "<p class=\"card-text\" id = 'card-"+result[key].pk+"'>Status Penyelesaian: Aduh</p>": 
+                                            "<p class=\"card-text\" id = 'card-"+result[key].pk+"'>Status Penyelesaian: Belum Selesai</p>") +
+                                        "<p class=\"card-text\">Description: "+ result[key].fields.description+"</p>" + 
+                                    "</div>"+
+                                    "<div class=\"card-footer\">"+
+                                        "<table>"+
+                                            "<th>"+
+                                                "<button class = 'btn btn-primary' onclick = 'changeStatus("+result[key].pk+")' name = 'changeButton' id = 'changeButton'>Ubah Status</button>"+
+                                            "</th>"+
+                                            "<th>"+
+                                                "<button class = 'btn btn-primary' onclick = 'deleteTask("+result[key].pk+")' name = 'deleteButton' id = 'deleteButton'>Hapus Task</button>"+
+                                            "</th>"+
+                                        "</table>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</div>"; 
                     });
-                    counter = result.length;
+                    $(".row").html(temp);
                 }
             });
         });
@@ -63,7 +59,7 @@
                 data: {
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     'title': $('#formTitle').val().trim(),
-                    'description': $('#formDescription').val()
+                    'description': $('#formDescription').val().trim()
                 },
                 success: alert("Task Berhasil Dibuat!")
             });
@@ -123,7 +119,6 @@
     
     
     <div class="row row-cols-auto justify-content-center" id = "row">
-        <script>var counter = 0;</script>
         {% for item in list_task %}
         <div class = "col pt-md-2" id = "col-{{item.id}}">
             <div class="card h-100" style="width: 18rem;">
@@ -152,7 +147,6 @@
                 </div>
             </div>
         </div>
-        <script>counter += 1;</script>
         {% endfor %}
     </div>
     <br>
