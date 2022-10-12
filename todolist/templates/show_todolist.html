@@ -4,6 +4,113 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'todolist_style.css' %}">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- script untuk GET -->
+<script> 
+    $(document).ready(function(){
+        $("#jsonButton").click(function(){
+            $.ajax({
+                url: '/todolist/json',
+                type: 'GET',
+                dataType: 'json',
+                success: function(result){
+                    $.each(result, function(key, value){
+                        if (key + 1 > counter){
+                            let temp = "<div class = \"col pt-md-2\" id = 'col-"+result[key].pk+"'>" +
+                                    "<div class=\"card h-100\" style=\"width: 18rem;\">"+
+                                        "<img src=\"{% static 'final_fantasy_2.jpg' %}\" class=\"card-img-top\">"+
+                                        "<div class=\"card-header\">"+
+                                            "<h5 class=\"card-title\">"+result[key].fields.title+"</h5>"+
+                                        "</div>"+
+                                        "<div class = 'card-body'>" + 
+                                            "<p class=\"card-text\">Date:"+ result[key].fields.date +"</p>" +
+                                            ((result[key].fields.is_finished)? "<p class=\"card-text\" id = 'card-"+result[key].pk+"'>Status Penyelesaian: Aduh</p>": 
+                                                "<p class=\"card-text\" id = 'card-"+result[key].pk+"'>Status Penyelesaian: Belum Selesai</p>") +
+                                            "<p class=\"card-text\">Description: "+ result[key].fields.description+"</p>" + 
+                                        "</div>"+
+                                        "<div class=\"card-footer\">"+
+                                            "<table>"+
+                                                "<th>"+
+                                                    "<button class = 'btn btn-primary' onclick = 'changeStatus("+result[key].pk+")' name = 'changeButton' id = 'changeButton'>Ubah Status</button>"+
+                                                "</th>"+
+                                                "<th>"+
+                                                    "<button class = 'btn btn-primary' onclick = 'deleteTask("+result[key].pk+")' name = 'deleteButton' id = 'deleteButton'>Hapus Task</button>"+
+                                                "</th>"+
+                                            "</table>"+
+                                        "</div>"+
+                                    "</div>"+
+                                "</div>";
+                            $(".row").append(
+                                temp
+                            );
+                        } 
+                    });
+                    counter = result.length;
+                }
+            });
+        });
+    });
+</script>
+
+<!-- script untuk POST -->
+<script>
+    $(document).ready(function(){
+        $("#buttonCreate").click(function(){
+            $.ajax({
+                url: "{% url 'todolist:add' %}",
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    'title': $('#formTitle').val().trim(),
+                    'description': $('#formDescription').val()
+                },
+                success: alert("Task Berhasil Dibuat!")
+            });
+            $('#newForm')[0].reset();
+            $("#newModal").modal('hide');
+        });
+    });
+</script>
+
+<!-- script untuk delete user -->
+<script> 
+    function deleteTask(id){
+        var temp = "{% url 'todolist:delete' 1 %}".replace('1', id);
+        $.ajax({
+            url: temp,
+            type: "DELETE",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function(response){
+                $("#col-" + id).remove();
+                counter = counter - 1;
+            }
+        });
+    }
+</script>
+
+<!-- script untuk change status -->
+<script> 
+    function changeStatus(id){
+        $.ajax({
+            url: "{% url 'todolist:change-status' %}",
+            type: "GET",
+            data: {
+                'id':id
+            },
+            success: function(response){
+                if($("#col-" + id).find("#card-" + id).html().includes('Belum Selesai')){
+                    $("#col-" + id).find("#card-" + id).html('Status Penyelesaian: Selesai');
+                }
+                else{
+                    $("#col-" + id).find("#card-" + id).html('Status Penyelesaian: Belum Selesai');
+                }
+            }
+        });
+    }
+</script>
 {% endblock meta %}
 
 {% block content %}
@@ -15,9 +122,10 @@
     <p>{{user}}</p>
     
     
-    <div class="row row-cols-auto justify-content-center">
+    <div class="row row-cols-auto justify-content-center" id = "row">
+        <script>var counter = 0;</script>
         {% for item in list_task %}
-        <div class = "col pt-md-2">
+        <div class = "col pt-md-2" id = "col-{{item.id}}">
             <div class="card h-100" style="width: 18rem;">
                 <img src="{% static 'final_fantasy_2.jpg' %}" class="card-img-top">
                 <div class="card-header">
@@ -26,32 +134,62 @@
                 <div class="card-body">
                     <p class="card-text">Date: {{item.date}}</p>
                     {% if item.is_finished %}
-                        <p class="card-text">Status Penyelesaian: Selesai</p>
+                        <p class="card-text" id = "card-{{item.id}}">Status Penyelesaian: Selesai</p>
                     {% else %}
-                        <p class="card-text">Status Penyelesaian: Belum Selesai</p>
+                        <p class="card-text" id = "card-{{item.id}}">Status Penyelesaian: Belum Selesai</p>
                     {% endif %}
-                    <p class="card-text">Description: {{item.description}}</p>
+                    <p class="card-text" >Description: {{item.description}}</p>
                 </div>
                 <div class="card-footer">
                     <table>
-                        <th><form method = 'POST' action = 'change-status/'>
-                            {% csrf_token %}
-                            <input class = "btn btn-primary" type = 'submit' name = "{{item.id}}" value = 'Ubah Status'>
-                        </form></th>
-                        <th><form method = 'POST' action = 'delete-task/'>
-                            {% csrf_token %}
-                            <input class = "btn btn-primary" type = 'submit' name = "{{item.id}}" value = 'Hapus Task'>
-                        </form></th>
+                        <th>
+                            <button class = 'btn btn-primary' onclick="changeStatus('{{item.id}}')" name = 'changeButton' id = 'changeButton'>Ubah Status</button>
+                        </th>
+                        <th>
+                            <button class = 'btn btn-primary' onclick="deleteTask('{{item.id}}')" name = 'deleteButton' id = 'deleteButton'>Hapus Task</button>
+                        </th>
                     </table>
                 </div>
             </div>
         </div>
+        <script>counter += 1;</script>
         {% endfor %}
     </div>
-    
+    <br>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModal">
+    Add Task (Modal)
+    </button>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createTaskModal">Create Task</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id = "newForm">
+                    {% csrf_token %}
+                    <label class = "col-form-label">Title</label>
+                    <input type = "text" class = "form-control" id = formTitle>
+                    <label class = "col-form-label">Description</label>
+                    <input type = "text" class = "form-control" id = formDescription>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="buttonCreate">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <br>
     <br>
     <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
+    <a class = "btn btn-primary" name = 'buttonJson' id = 'jsonButton'>Get Data</a>
     <a class = "btn btn-primary" type = "button" href="{% url 'todolist:create-task' %}" name = 'task_baru' value = >Tambah Task Baru</a>
     <a class = "btn btn-primary" href="{% url 'todolist:logout_user' %}" name = 'logout'>Logout</a>
 

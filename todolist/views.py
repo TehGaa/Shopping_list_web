@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from todolist.models import Task
 from todolist.forms import TaskForm
+from django.core import serializers
+from django.http import JsonResponse
 import datetime
 
 @login_required(login_url='/todolist/login/')
@@ -70,17 +72,31 @@ def new_task(request):
     return render(request, 'new_task.html', context = context)
 
 def change_status(request):
-    for i in Task.objects.filter(user = request.user):
-        if str(i.id) in request.POST:
-            i.is_finished = not i.is_finished
-            i.save()
-            break
+    task = Task.objects.filter(pk = request.GET.get('id'))
+    for i in task:
+        i.is_finished = not i.is_finished
+        i.save() 
 
     return HttpResponseRedirect(reverse('todolist:show_todolist'))
 
-def delete_task(request):
-    for i in Task.objects.filter(user = request.user):
-        if str(i.id) in request.POST:
+def delete_task(request, id):
+    if request.method == 'DELETE':
+        task = Task.objects.filter(pk = id)
+        for i in task:
             i.delete()
-            break
     return HttpResponseRedirect(reverse('todolist:show_todolist'))
+
+def json(request):
+    tasks = Task.objects.filter(user = request.user)
+    return HttpResponse(serializers.serialize("json", tasks), content_type = "application/json")
+
+def add(request):
+    new_task = Task()
+    new_task.user = request.user
+    new_task.date = datetime.datetime.now()
+    new_task.description = request.POST.get('description')
+    new_task.title = request.POST.get('title')
+    new_task.is_finished = False
+    new_task.save()
+    return HttpResponseRedirect(reverse('todolist:show_todolist'))
+
