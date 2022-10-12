@@ -11,7 +11,7 @@
     $(document).ready(function(){
         $("#jsonButton").click(function(){
             $.ajax({
-                url: '/todolist/json',
+                url: "{% url 'todolist:json' %}",
                 type: 'GET',
                 dataType: 'json',
                 success: function(result){
